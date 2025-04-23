@@ -1,0 +1,743 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop UG - E-commerce</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #a29bfe;
+            --dark-color: #2d3436;
+            --darker-color: #1e272e;
+            --light-color: #f5f6fa;
+            --success-color: #00b894;
+            --warning-color: #fdcb6e;
+            --danger-color: #d63031;
+            --text-color: #dfe6e9;
+            --text-muted: #b2bec3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--darker-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--dark-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .logo span {
+            color: var(--text-color);
+        }
+
+        /* Navigation */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(7, 85, 107, 0.8), rgba(45, 52, 54, 0.8)), url('https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--light-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Products Section */
+        .section-title {
+            text-align: center;
+            margin: 3rem 0;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-card {
+            background-color: var(--dark-color);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-image {
+            height: 500px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: coVer;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--light-color);
+        }
+
+        .product-description {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--success-color);
+            margin-bottom: 1rem;
+        }
+
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 0.5rem;
+            border-radius: 5px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .call-btn {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .call-btn:hover {
+            background-color: #00a884;
+        }
+
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: white;
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+        }
+
+        .email-btn {
+            background-color: var(--warning-color);
+            color: var(--dark-color);
+        }
+
+        .email-btn:hover {
+            background-color: #e17055;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .developer-credit {
+            text-align: center;
+            margin-top: 1rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .developer-credit a {
+            color: var(--primary-color);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo {
+                margin-bottom: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+            }
+
+            .nav-menu {
+                display: none;
+                width: 100%;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .products {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .product-actions {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                height: 50vh;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .products {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">Shop<span>UG</span></div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1>Welcome to Shop UG</h1>
+            <p>Discover amazing products at affordable prices in Ugandan Shillings (UGX)</p>
+            <a href="#products" class="btn">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="container" id="products">
+        <h2 class="section-title">Our Products</h2>
+        <div class="products">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/home (9).jpg" alt="Running Shoes">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Premium Running Shoes</h3>
+                    <p class="product-description">High-performance running shoes with cushioned soles for maximum comfort.</p>
+                    <div class="product-price">250,000 UGX</div>
+                    <div class="product-actions">
+                        <a href="tel:+256712345678" class="action-btn call-btn">Call</a>
+                        <a href="https://wa.me/256712345678?text=I'm%20interested%20in%20your%20Premium%20Running%20Shoes%20for%20sale%20at%20250,000%20UGX" class="action-btn whatsapp-btn">WhatsApp</a>
+                        <a href="mailto:sales@shopug.com?subject=Inquiry%20about%20Premium%20Running%20Shoes&body=Hello,%20I'm%20interested%20in%20your%20Premium%20Running%20Shoes%20priced%20at%20250,000%20UGX.%20Please%20provide%20more%20information." class="action-btn email-btn">Email</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/home (10).jpg" alt="Running Shoes">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Premium Running Shoes</h3>
+                    <p class="product-description">High-performance running shoes with cushioned soles for maximum comfort.</p>
+                    <div class="product-price">250,000 UGX</div>
+                    <div class="product-actions">
+                        <a href="tel:+256712345678" class="action-btn call-btn">Call</a>
+                        <a href="https://wa.me/256712345678?text=I'm%20interested%20in%20your%20Premium%20Running%20Shoes%20for%20sale%20at%20250,000%20UGX" class="action-btn whatsapp-btn">WhatsApp</a>
+                        <a href="mailto:sales@shopug.com?subject=Inquiry%20about%20Premium%20Running%20Shoes&body=Hello,%20I'm%20interested%20in%20your%20Premium%20Running%20Shoes%20priced%20at%20250,000%20UGX.%20Please%20provide%20more%20information." class="action-btn email-btn">Email</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/home (12).jpg" alt="Running Shoes">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Premium Running Shoes</h3>
+                    <p class="product-description">High-performance running shoes with cushioned soles for maximum comfort.</p>
+                    <div class="product-price">250,000 UGX</div>
+                    <div class="product-actions">
+                        <a href="tel:+256712345678" class="action-btn call-btn">Call</a>
+                        <a href="https://wa.me/256712345678?text=I'm%20interested%20in%20your%20Premium%20Running%20Shoes%20for%20sale%20at%20250,000%20UGX" class="action-btn whatsapp-btn">WhatsApp</a>
+                        <a href="mailto:sales@shopug.com?subject=Inquiry%20about%20Premium%20Running%20Shoes&body=Hello,%20I'm%20interested%20in%20your%20Premium%20Running%20Shoes%20priced%20at%20250,000%20UGX.%20Please%20provide%20more%20information." class="action-btn email-btn">Email</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/home (14).jpg" alt="Running Shoes">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Premium Running Shoes</h3>
+                    <p class="product-description">High-performance running shoes with cushioned soles for maximum comfort.</p>
+                    <div class="product-price">250,000 UGX</div>
+                    <div class="product-actions">
+                        <a href="tel:+256712345678" class="action-btn call-btn">Call</a>
+                        <a href="https://wa.me/256712345678?text=I'm%20interested%20in%20your%20Premium%20Running%20Shoes%20for%20sale%20at%20250,000%20UGX" class="action-btn whatsapp-btn">WhatsApp</a>
+                        <a href="mailto:sales@shopug.com?subject=Inquiry%20about%20Premium%20Running%20Shoes&body=Hello,%20I'm%20interested%20in%20your%20Premium%20Running%20Shoes%20priced%20at%20250,000%20UGX.%20Please%20provide%20more%20information." class="action-btn email-btn">Email</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/home (8).jpg" alt="Running Shoes">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Premium Running Shoes</h3>
+                    <p class="product-description">High-performance running shoes with cushioned soles for maximum comfort.</p>
+                    <div class="product-price">250,000 UGX</div>
+                    <div class="product-actions">
+                        <a href="tel:+256712345678" class="action-btn call-btn">Call</a>
+                        <a href="https://wa.me/256712345678?text=I'm%20interested%20in%20your%20Premium%20Running%20Shoes%20for%20sale%20at%20250,000%20UGX" class="action-btn whatsapp-btn">WhatsApp</a>
+                        <a href="mailto:sales@shopug.com?subject=Inquiry%20about%20Premium%20Running%20Shoes&body=Hello,%20I'm%20interested%20in%20your%20Premium%20Running%20Shoes%20priced%20at%20250,000%20UGX.%20Please%20provide%20more%20information." class="action-btn email-btn">Email</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/home (3).jpg" alt="Running Shoes">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Premium Running Shoes</h3>
+                    <p class="product-description">High-performance running shoes with cushioned soles for maximum comfort.</p>
+                    <div class="product-price">250,000 UGX</div>
+                    <div class="product-actions">
+                        <a href="tel:+256712345678" class="action-btn call-btn">Call</a>
+                        <a href="https://wa.me/256712345678?text=I'm%20interested%20in%20your%20Premium%20Running%20Shoes%20for%20sale%20at%20250,000%20UGX" class="action-btn whatsapp-btn">WhatsApp</a>
+                        <a href="mailto:sales@shopug.com?subject=Inquiry%20about%20Premium%20Running%20Shoes&body=Hello,%20I'm%20interested%20in%20your%20Premium%20Running%20Shoes%20priced%20at%20250,000%20UGX.%20Please%20provide%20more%20information." class="action-btn email-btn">Email</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/home (7).jpg" alt="Running Shoes">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Premium Running Shoes</h3>
+                    <p class="product-description">High-performance running shoes with cushioned soles for maximum comfort.</p>
+                    <div class="product-price">250,000 UGX</div>
+                    <div class="product-actions">
+                        <a href="tel:+256712345678" class="action-btn call-btn">Call</a>
+                        <a href="https://wa.me/256712345678?text=I'm%20interested%20in%20your%20Premium%20Running%20Shoes%20for%20sale%20at%20250,000%20UGX" class="action-btn whatsapp-btn">WhatsApp</a>
+                        <a href="mailto:sales@shopug.com?subject=Inquiry%20about%20Premium%20Running%20Shoes&body=Hello,%20I'm%20interested%20in%20your%20Premium%20Running%20Shoes%20priced%20at%20250,000%20UGX.%20Please%20provide%20more%20information." class="action-btn email-btn">Email</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/home (5).jpg" alt="Running Shoes">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Premium Running Shoes</h3>
+                    <p class="product-description">High-performance running shoes with cushioned soles for maximum comfort.</p>
+                    <div class="product-price">250,000 UGX</div>
+                    <div class="product-actions">
+                        <a href="tel:+256712345678" class="action-btn call-btn">Call</a>
+                        <a href="https://wa.me/256712345678?text=I'm%20interested%20in%20your%20Premium%20Running%20Shoes%20for%20sale%20at%20250,000%20UGX" class="action-btn whatsapp-btn">WhatsApp</a>
+                        <a href="mailto:sales@shopug.com?subject=Inquiry%20about%20Premium%20Running%20Shoes&body=Hello,%20I'm%20interested%20in%20your%20Premium%20Running%20Shoes%20priced%20at%20250,000%20UGX.%20Please%20provide%20more%20information." class="action-btn email-btn">Email</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Smart Watch">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Smart Watch Pro</h3>
+                    <p class="product-description">Feature-packed smartwatch with heart rate monitoring and GPS.</p>
+                    <div class="product-price">350,000 UGX</div>
+                    <div class="product-actions">
+                        <a href="tel:+256712345678" class="action-btn call-btn">Call</a>
+                        <a href="https://wa.me/256712345678?text=I'm%20interested%20in%20your%20Smart%20Watch%20Pro%20for%20sale%20at%20350,000%20UGX" class="action-btn whatsapp-btn">WhatsApp</a>
+                        <a href="mailto:sales@shopug.com?subject=Inquiry%20about%20Smart%20Watch%20Pro&body=Hello,%20I'm%20interested%20in%20your%20Smart%20Watch%20Pro%20priced%20at%20350,000%20UGX.%20Please%20provide%20more%20information." class="action-btn email-btn">Email</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Wireless Headphones">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Wireless Headphones</h3>
+                    <p class="product-description">Premium noise-cancelling wireless headphones with 30-hour battery life.</p>
+                    <div class="product-price">180,000 UGX</div>
+                    <div class="product-actions">
+                        <a href="tel:+256712345678" class="action-btn call-btn">Call</a>
+                        <a href="https://wa.me/256712345678?text=I'm%20interested%20in%20your%20Wireless%20Headphones%20for%20sale%20at%20180,000%20UGX" class="action-btn whatsapp-btn">WhatsApp</a>
+                        <a href="mailto:sales@shopug.com?subject=Inquiry%20about%20Wireless%20Headphones&body=Hello,%20I'm%20interested%20in%20your%20Wireless%20Headphones%20priced%20at%20180,000%20UGX.%20Please%20provide%20more%20information." class="action-btn email-btn">Email</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Smartphone">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Smartphone X</h3>
+                    <p class="product-description">Latest smartphone with triple camera setup and 128GB storage.</p>
+                    <div class="product-price">1,200,000 UGX</div>
+                    <div class="product-actions">
+                        <a href="tel:+256712345678" class="action-btn call-btn">Call</a>
+                        <a href="https://wa.me/256712345678?text=I'm%20interested%20in%20your%20Smartphone%20X%20for%20sale%20at%201,200,000%20UGX" class="action-btn whatsapp-btn">WhatsApp</a>
+                        <a href="mailto:sales@shopug.com?subject=Inquiry%20about%20Smartphone%20X&body=Hello,%20I'm%20interested%20in%20your%20Smartphone%20X%20priced%20at%201,200,000%20UGX.%20Please%20provide%20more%20information." class="action-btn email-btn">Email</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Laptop">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Ultra Slim Laptop</h3>
+                    <p class="product-description">Powerful laptop with 16GB RAM, 512GB SSD, and 14-inch display.</p>
+                    <div class="product-price">2,500,000 UGX</div>
+                    <div class="product-actions">
+                        <a href="tel:+256712345678" class="action-btn call-btn">Call</a>
+                        <a href="https://wa.me/256712345678?text=I'm%20interested%20in%20your%20Ultra%20Slim%20Laptop%20for%20sale%20at%202,500,000%20UGX" class="action-btn whatsapp-btn">WhatsApp</a>
+                        <a href="mailto:sales@shopug.com?subject=Inquiry%20about%20Ultra%20Slim%20Laptop&body=Hello,%20I'm%20interested%20in%20your%20Ultra%20Slim%20Laptop%20priced%20at%202,500,000%20UGX.%20Please%20provide%20more%20information." class="action-btn email-btn">Email</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sunglasses">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Designer Sunglasses</h3>
+                    <p class="product-description">UV-protected designer sunglasses with polarized lenses.</p>
+                    <div class="product-price">120,000 UGX</div>
+                    <div class="product-actions">
+                        <a href="tel:+256712345678" class="action-btn call-btn">Call</a>
+                        <a href="https://wa.me/256712345678?text=I'm%20interested%20in%20your%20Designer%20Sunglasses%20for%20sale%20at%20120,000%20UGX" class="action-btn whatsapp-btn">WhatsApp</a>
+                        <a href="mailto:sales@shopug.com?subject=Inquiry%20about%20Designer%20Sunglasses&body=Hello,%20I'm%20interested%20in%20your%20Designer%20Sunglasses%20priced%20at%20120,000%20UGX.%20Please%20provide%20more%20information." class="action-btn email-btn">Email</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+    <!-- About Section -->
+    <section class="container" id="about">
+        <h2 class="section-title">About Us</h2>
+        <div style="background-color: var(--dark-color); padding: 2rem; border-radius: 10px; margin-bottom: 3rem;">
+            <p style="margin-bottom: 1rem;">Welcome to Shop UG, your premier online shopping destination in Uganda. We specialize in bringing you high-quality products at competitive prices in Ugandan Shillings (UGX).</p>
+            <p style="margin-bottom: 1rem;">Our mission is to provide a seamless shopping experience with direct communication channels to our sales team via call, WhatsApp, or email.</p>
+            <p>All our products come with a warranty and we offer reliable delivery services across Uganda.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="container" id="contact">
+        <h2 class="section-title">Contact Us</h2>
+        <div style="background-color: var(--dark-color); padding: 2rem; border-radius: 10px; margin-bottom: 3rem;">
+            <p style="margin-bottom: 1rem;"><strong>Phone:</strong> +256 712 345678</p>
+            <p style="margin-bottom: 1rem;"><strong>Email:</strong> info@shopug.com</p>
+            <p style="margin-bottom: 1rem;"><strong>Address:</strong> 123 Market Street, Kampala, Uganda</p>
+            <p><strong>Business Hours:</strong> Monday - Friday: 9:00 AM - 6:00 PM, Saturday: 10:00 AM - 4:00 PM</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-column">
+                <h3>Shop UG</h3>
+                <p>Your trusted online shopping destination in Uganda with prices in UGX.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <ul>
+                    <li>+256 712 345678</li>
+                    <li>info@shopug.com</li>
+                    <li>Kampala, Uganda</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Shop UG. All Rights Reserved.</p>
+            <p class="developer-credit">Developed by <a href="#" target="_blank">Ian Patrick</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                navMenu.classList.remove('active');
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight current section in navigation
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    document.querySelectorAll('nav ul li a').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
